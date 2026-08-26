@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>인사이트 보관함 — 올리기</title>
+<link rel="stylesheet" href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css">
+<style>
+  :root{
+    --paper:#F6F3EE;
+    --ink:#232019;
+    --ink-soft:#6B6459;
+    --clay:#9C5B3C;
+    --clay-soft:#F0E0D5;
+    --sage:#6E7A5E;
+    --line:#E4DED4;
+    --white:#FFFFFF;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Spoqa Han Sans Neo","Spoqa Han Sans","Apple SD Gothic Neo",sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  header{
+    padding:28px 20px 18px;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.08em;
+    color:var(--clay);
+    text-transform:uppercase;
+    margin:0 0 6px;
+  }
+  h1{
+    font-size:22px;
+    font-weight:700;
+    margin:0;
+    letter-spacing:-.01em;
+  }
+  .sub{
+    margin:6px 0 0;
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.5;
+  }
+  nav{
+    display:flex;
+    gap:8px;
+    padding:14px 20px 0;
+  }
+  nav a{
+    flex:1;
+    text-align:center;
+    padding:10px 0;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:700;
+    text-decoration:none;
+    border:1px solid var(--line);
+    color:var(--ink-soft);
+    background:var(--white);
+  }
+  nav a.active{
+    background:var(--ink);
+    color:var(--white);
+    border-color:var(--ink);
+  }
+  main{
+    padding:20px;
+    max-width:520px;
+    margin:0 auto;
+  }
+  .shot-picker{
+    position:relative;
+    border:1.5px dashed var(--line);
+    border-radius:var(--radius);
+    background:var(--white);
+    min-height:220px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    cursor:pointer;
+  }
+  .shot-picker img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    background:#111;
+  }
+  .shot-picker .placeholder{
+    text-align:center;
+    color:var(--ink-soft);
+    padding:24px;
+  }
+  .shot-picker .placeholder .icon{
+    width:40px;height:40px;margin:0 auto 10px;
+    border-radius:50%;
+    background:var(--clay-soft);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--clay);
+    font-size:18px;
+    font-weight:700;
+  }
+  .shot-picker .placeholder p{margin:0;font-size:13px;font-weight:500;}
+  input[type=file]{display:none;}
+
+  .field{margin-top:20px;}
+  .field label{
+    display:block;
+    font-size:12px;
+    font-weight:700;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+  }
+  .pill-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .pill{
+    padding:8px 14px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:var(--white);
+    font-size:13px;
+    font-weight:600;
+    color:var(--ink);
+    cursor:pointer;
+    user-select:none;
+  }
+  .pill.selected{
+    background:var(--ink);
+    border-color:var(--ink);
+    color:var(--white);
+  }
+  input[type=text], textarea{
+    width:100%;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 14px;
+    font-size:14px;
+    font-family:inherit;
+    background:var(--white);
+    color:var(--ink);
+  }
+  textarea{min-height:88px;resize:vertical;}
+  input[type=text]:focus, textarea:focus{
+    outline:2px solid var(--clay);
+    outline-offset:1px;
+  }
+
+  .submit-btn{
+    width:100%;
+    margin-top:26px;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:var(--ink);
+    color:var(--white);
+    font-size:15px;
+    font-weight:700;
+    font-family:inherit;
+    cursor:pointer;
+  }
+  .submit-btn:disabled{
+    background:#B9B2A6;
+    cursor:not-allowed;
+  }
+  .toast{
+    position:fixed;
+    left:50%;
+    bottom:28px;
+    transform:translate(-50%,20px);
+    background:var(--ink);
+    color:var(--white);
+    padding:12px 20px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:600;
+    opacity:0;
+    transition:all .25s ease;
+    pointer-events:none;
+    white-space:nowrap;
+  }
+  .toast.show{
+    transform:translate(-50%,0);
+    opacity:1;
+  }
+  .hint{
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:8px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">Insight Archive</p>
+  <h1>인사이트 보관함</h1>
+  <p class="sub">캡쳐한 레퍼런스, 사진첩 말고 여기로 모아두세요.</p>
+</header>
+
+<nav>
+  <a href="index.html" class="active">올리기</a>
+  <a href="gallery.html">모아보기</a>
+</nav>
+
+<main>
+  <div class="shot-picker" id="shotPicker">
+    <div class="placeholder" id="placeholder">
+      <div class="icon">＋</div>
+      <p>탭해서 캡쳐 이미지 선택</p>
+    </div>
+    <img id="preview" style="display:none;">
+  </div>
+  <input type="file" id="fileInput" accept="image/*">
+
+  <div class="field">
+    <label>카테고리</label>
+    <div class="pill-row" id="categoryRow">
+      <!-- 로딩 중 표시 -->
+      <span class="hint">카테고리 불러오는 중…</span>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>올린 사람</label>
+    <input type="text" id="submitter" placeholder="이름">
+  </div>
+
+  <div class="field">
+    <label>어떤 게 좋았나요? (한줄평)</label>
+    <textarea id="comment" placeholder="예: 카피 톤이 담백해서 좋음 / 배너 여백 구성 참고할 만함"></textarea>
+  </div>
+
+  <button class="submit-btn" id="submitBtn" disabled>제출하기</button>
+  <p class="hint" id="statusHint"></p>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ⚠️ Apps Script 배포 후 발급된 "웹 앱 URL"을 여기에 붙여넣으세요.
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby7KyGo6rkOYwBTYQB83WKisT9Zw6uKoLb_RfIX1_n5Jt6bAoSFomNVGfH9GnTJwqOX4Q/exec";
+
+const shotPicker = document.getElementById('shotPicker');
+const fileInput = document.getElementById('fileInput');
+const preview = document.getElementById('preview');
+const placeholder = document.getElementById('placeholder');
+const categoryRow = document.getElementById('categoryRow');
+const submitterInput = document.getElementById('submitter');
+const commentInput = document.getElementById('comment');
+const submitBtn = document.getElementById('submitBtn');
+const toast = document.getElementById('toast');
+const statusHint = document.getElementById('statusHint');
+
+let selectedCategory = null;
+let imageDataUrl = null;
+
+// 이전에 쓴 이름 기억
+const savedName = localStorage.getItem('insight_submitter');
+if (savedName) submitterInput.value = savedName;
+
+shotPicker.addEventListener('click', () => fileInput.click());
+
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  resizeAndEncode(file, 1600, 0.82).then((dataUrl) => {
+    imageDataUrl = dataUrl;
+    preview.src = dataUrl;
+    preview.style.display = 'block';
+    placeholder.style.display = 'none';
+    updateSubmitState();
+  });
+});
+
+function resizeAndEncode(file, maxDim, quality) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    const reader = new FileReader();
+    reader.onload = (ev) => { img.src = ev.target.result; };
+    img.onload = () => {
+      let { width, height } = img;
+      if (width > height && width > maxDim) {
+        height = Math.round(height * (maxDim / width));
+        width = maxDim;
+      } else if (height > maxDim) {
+        width = Math.round(width * (maxDim / height));
+        height = maxDim;
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+      resolve(canvas.toDataURL('image/jpeg', quality));
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+async function loadCategories() {
+  try {
+    const res = await fetch(`${APPS_SCRIPT_URL}?action=categories`);
+    const data = await res.json();
+    renderCategories(data.ok ? data.categories : ['기타']);
+  } catch (err) {
+    renderCategories(['광고소재', '디자인', '콘텐츠', '기타']);
+  }
+}
+
+function renderCategories(list) {
+  categoryRow.innerHTML = '';
+  list.forEach((name) => {
+    const pill = document.createElement('div');
+    pill.className = 'pill';
+    pill.textContent = name;
+    pill.addEventListener('click', () => {
+      selectedCategory = name;
+      [...categoryRow.children].forEach(c => c.classList.remove('selected'));
+      pill.classList.add('selected');
+      updateSubmitState();
+    });
+    categoryRow.appendChild(pill);
+  });
+}
+
+function updateSubmitState() {
+  submitBtn.disabled = !(imageDataUrl && selectedCategory && submitterInput.value.trim());
+}
+
+submitterInput.addEventListener('input', updateSubmitState);
+
+submitBtn.addEventListener('click', async () => {
+  const submitter = submitterInput.value.trim();
+  if (!submitter || !selectedCategory || !imageDataUrl) return;
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = '올리는 중…';
+  statusHint.textContent = '';
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // CORS preflight 회피
+      body: JSON.stringify({
+        submitter,
+        category: selectedCategory,
+        comment: commentInput.value.trim(),
+        image: imageDataUrl,
+        mimeType: 'image/jpeg'
+      })
+    });
+
+    localStorage.setItem('insight_submitter', submitter);
+    showToast('올렸습니다 ✓');
+    resetForm();
+  } catch (err) {
+    statusHint.textContent = '전송 중 오류가 발생했어요. 다시 시도해주세요.';
+    submitBtn.disabled = false;
+  }
+  submitBtn.textContent = '제출하기';
+});
+
+function resetForm() {
+  imageDataUrl = null;
+  preview.style.display = 'none';
+  placeholder.style.display = 'block';
+  fileInput.value = '';
+  selectedCategory = null;
+  [...categoryRow.children].forEach(c => c.classList.remove('selected'));
+  commentInput.value = '';
+  updateSubmitState();
+}
+
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+loadCategories();
+</script>
+</body>
+</html>
