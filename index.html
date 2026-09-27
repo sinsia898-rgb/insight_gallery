@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#16181D">
+<meta name="theme-color" content="#14161A">
 <title>인사이트 보관함</title>
 <link href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet">
 <style>
   :root{
-    --ink:#16181D;
-    --ink-60:#5B6069;
+    --ink:#14161A;
+    --ink-60:#5A6068;
     --ink-30:#9AA0A8;
-    --line:#DFE2E6;
+    --line:#DEE1E5;
     --surface:#FFFFFF;
-    --bg:#EDEEF0;
+    --bg:#ECEEF0;
     --accent:#2B4CFF;
-    --accent-soft:#E8ECFF;
+    --accent-soft:#E7ECFF;
     --danger:#C2352B;
     --r:14px;
     --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -24,67 +24,56 @@
   html,body{margin:0;padding:0}
   body{
     font-family:'Spoqa Han Sans Neo',-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;
-    background:var(--bg); color:var(--ink);
-    font-size:15px; line-height:1.55;
-    padding-bottom:env(safe-area-inset-bottom);
+    background:var(--bg);color:var(--ink);
+    font-size:15px;line-height:1.55;
+    padding-bottom:calc(56px + env(safe-area-inset-bottom));
   }
-  .wrap{max-width:720px;margin:0 auto;padding:0 16px 64px}
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px}
 
-  /* ── 헤더 ───────────────────────── */
   header{
-    position:sticky;top:0;z-index:20;
-    background:var(--bg);
-    padding:18px 16px 10px;
-    max-width:720px;margin:0 auto;
+    position:sticky;top:0;z-index:20;background:var(--bg);
+    padding:18px 16px 10px;max-width:720px;margin:0 auto;
   }
-  h1{
-    margin:0 0 14px;
-    font-size:20px;font-weight:700;letter-spacing:-.03em;
-  }
+  h1{margin:0 0 14px;font-size:20px;font-weight:700;letter-spacing:-.03em}
   h1 span{color:var(--ink-30);font-weight:400}
-  .tabs{display:flex;gap:4px;background:#E1E3E6;padding:4px;border-radius:11px}
+  .tabs{display:flex;gap:4px;background:#E0E2E6;padding:4px;border-radius:11px}
   .tabs button{
-    flex:1;border:0;background:transparent;cursor:pointer;
-    font:inherit;font-weight:600;font-size:14px;color:var(--ink-60);
+    flex:1;border:0;background:transparent;cursor:pointer;font:inherit;
+    font-weight:600;font-size:14px;color:var(--ink-60);
     padding:9px 0;border-radius:8px;transition:.15s;
   }
   .tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
 
-  /* ── 폼 ─────────────────────────── */
   .card{background:var(--surface);border-radius:var(--r);padding:18px;margin-top:14px}
-  label{display:block;font-size:12.5px;font-weight:700;color:var(--ink-60);margin-bottom:8px;letter-spacing:.01em}
+  label{display:block;font-size:12.5px;font-weight:700;color:var(--ink-60);margin-bottom:8px}
   input[type=text],textarea{
     width:100%;font:inherit;color:var(--ink);
-    border:1.5px solid var(--line);border-radius:10px;
-    padding:11px 12px;background:var(--surface);
-    transition:border-color .15s;
+    border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;
+    background:var(--surface);transition:border-color .15s;
   }
   input[type=text]:focus,textarea:focus{outline:0;border-color:var(--accent)}
   textarea{resize:vertical;min-height:76px}
   .field + .field{margin-top:18px}
 
   .drop{
-    border:1.5px dashed var(--line);border-radius:12px;
-    padding:28px 16px;text-align:center;cursor:pointer;
-    color:var(--ink-60);font-size:14px;transition:.15s;
+    border:1.5px dashed var(--line);border-radius:12px;padding:28px 16px;
+    text-align:center;cursor:pointer;color:var(--ink-60);font-size:14px;transition:.15s;
   }
   .drop:active{border-color:var(--accent);background:var(--accent-soft)}
   .drop strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}
   .preview{position:relative;border-radius:12px;overflow:hidden;background:#000;display:none}
   .preview img{display:block;width:100%;max-height:340px;object-fit:contain}
   .preview button{
-    position:absolute;top:8px;right:8px;
-    border:0;border-radius:8px;padding:7px 11px;cursor:pointer;
-    font:inherit;font-size:12.5px;font-weight:600;
-    background:rgba(0,0,0,.65);color:#fff;backdrop-filter:blur(6px);
+    position:absolute;top:8px;right:8px;border:0;border-radius:8px;
+    padding:7px 11px;cursor:pointer;font:inherit;font-size:12.5px;font-weight:600;
+    background:rgba(0,0,0,.65);color:#fff;
   }
 
   .chips{display:flex;flex-wrap:wrap;gap:7px}
   .chip{
-    border:1.5px solid var(--line);background:var(--surface);
-    border-radius:999px;padding:8px 14px;cursor:pointer;
-    font:inherit;font-size:13.5px;font-weight:600;color:var(--ink-60);
-    transition:.15s;
+    border:1.5px solid var(--line);background:var(--surface);border-radius:999px;
+    padding:8px 14px;cursor:pointer;font:inherit;font-size:13.5px;font-weight:600;
+    color:var(--ink-60);transition:.15s;
   }
   .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
 
@@ -94,13 +83,11 @@
     padding:15px 0;transition:.15s;
   }
   .submit:disabled{background:var(--ink-30);cursor:default}
-
   .msg{margin-top:12px;font-size:13.5px;font-weight:600;text-align:center;min-height:20px}
   .msg.ok{color:var(--accent)}
   .msg.err{color:var(--danger)}
 
-  /* ── 갤러리 ─────────────────────── */
-  .filters{margin:14px 0 0;display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+  .filters{margin-top:14px;display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
   .filters::-webkit-scrollbar{display:none}
   .filters .chip{flex:0 0 auto}
 
@@ -108,27 +95,29 @@
   @media(min-width:560px){.grid{grid-template-columns:1fr 1fr}}
 
   .item{background:var(--surface);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
-  .item .thumb{width:100%;aspect-ratio:4/3;object-fit:cover;background:#E1E3E6;cursor:zoom-in;display:block}
+  .item .thumb{width:100%;aspect-ratio:4/3;object-fit:cover;background:#E0E2E6;cursor:zoom-in;display:block}
   .item .body{padding:13px 14px 14px}
   .item .note{font-size:14.5px;font-weight:500;letter-spacing:-.01em;margin:0 0 9px;white-space:pre-wrap}
   .item .note.empty{color:var(--ink-30);font-weight:400}
   .item .meta{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--ink-30);font-family:var(--mono)}
   .item .cat{
     font-family:'Spoqa Han Sans Neo',sans-serif;font-size:11.5px;font-weight:700;
-    color:var(--accent);background:var(--accent-soft);
-    padding:3px 8px;border-radius:6px;letter-spacing:0;
+    color:var(--accent);background:var(--accent-soft);padding:3px 8px;border-radius:6px;
   }
 
   .state{text-align:center;color:var(--ink-30);padding:56px 20px;font-size:14px}
   .state strong{display:block;color:var(--ink-60);font-size:15px;margin-bottom:5px}
 
-  /* ── 라이트박스 ─────────────────── */
-  .lb{
-    position:fixed;inset:0;z-index:60;background:rgba(10,11,13,.94);
-    display:none;align-items:center;justify-content:center;padding:20px;
-  }
+  .lb{position:fixed;inset:0;z-index:60;background:rgba(10,11,13,.94);display:none;align-items:center;justify-content:center;padding:20px}
   .lb.on{display:flex}
   .lb img{max-width:100%;max-height:88vh;object-fit:contain;border-radius:8px}
+
+  .setup{
+    margin:14px 0;background:#FFF6E5;border:1.5px solid #F0D79A;
+    border-radius:12px;padding:14px 16px;font-size:13.5px;color:#6B5316;display:none;
+  }
+  .setup strong{display:block;color:#4A3A0D;margin-bottom:4px}
+  .setup code{font-family:var(--mono);font-size:12.5px;background:#F6E9C8;padding:1px 5px;border-radius:4px}
 
   .hidden{display:none}
   @media(prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -145,6 +134,11 @@
 </header>
 
 <div class="wrap">
+
+  <div class="setup" id="setup">
+    <strong>연결 설정이 아직 남아 있습니다</strong>
+    아래 스크립트의 <code>API</code> 값을 Apps Script 웹 앱의 <code>/exec</code> 주소로 바꿔 주세요.
+  </div>
 
   <!-- 올리기 -->
   <section id="view-add">
@@ -194,12 +188,17 @@
 <div class="lb" id="lb"><img id="lbImg" alt="원본 이미지"></div>
 
 <script>
-const API = 'https://script.google.com/macros/s/AKfycbxqDorIHOUYqkQCLuQWuUn0Y7Aym-4wG2QTvPc8aMOYBZIaTVt_NGwJW7WAqtci1kkS/exec';
+/* ────────────────────────────────────────────────
+   Apps Script 웹 앱 주소 (배포 후 여기에 붙여넣기)
+   ──────────────────────────────────────────────── */
+const API = 'https://script.google.com/macros/s/AKfycbz--ticbQq82rx6DtHJkJPjmxhrAU6B6NnZb3qjhqtHdDnej3Fgk2ZYC0ToFcnJtIMaLQ/exec';
 
 const $ = s => document.querySelector(s);
-let categories = [], picked = '', imageB64 = null, listLoaded = false, filter = '전체';
+let categories = [], picked = '', imageB64 = null, listLoaded = false, filter = '전체', items = [];
 
-/* 이름 기억 (실패해도 무시) */
+const configured = /^https:\/\/script\.google\.com\/.+\/exec$/.test(API);
+if (!configured) $('#setup').style.display = 'block';
+
 const remember = {
   get(){ try { return localStorage.getItem('insight_author') || ''; } catch(e){ return ''; } },
   set(v){ try { localStorage.setItem('insight_author', v); } catch(e){} }
@@ -220,54 +219,57 @@ function switchTab(which){
 
 /* ── 카테고리 ───────────────────── */
 async function loadCategories(){
-  try {
-    const r = await fetch(API + '?action=categories');
-    const d = await r.json();
-    categories = d.categories || [];
-  } catch(e){
-    categories = ['광고소재','디자인','콘텐츠','기타'];
+  if (configured) {
+    try {
+      const r = await fetch(API + '?action=categories');
+      const d = await r.json();
+      if (d.ok && d.categories && d.categories.length) categories = d.categories;
+    } catch(e){}
   }
-  picked = categories[0] || '';
+  if (!categories.length) categories = ['광고소재','디자인','콘텐츠','기타'];
+  picked = categories[0];
   renderCatChips();
   renderFilters();
 }
 
 function renderCatChips(){
-  $('#catChips').innerHTML = '';
+  const box = $('#catChips'); box.innerHTML = '';
   categories.forEach(c => {
     const b = document.createElement('button');
-    b.type = 'button'; b.className = 'chip'; b.textContent = c;
+    b.type='button'; b.className='chip'; b.textContent=c;
     b.setAttribute('aria-pressed', c === picked);
     b.onclick = () => { picked = c; renderCatChips(); };
-    $('#catChips').appendChild(b);
+    box.appendChild(b);
   });
 }
 
 function renderFilters(){
-  const all = ['전체', ...categories];
-  $('#filters').innerHTML = '';
-  all.forEach(c => {
+  const box = $('#filters'); box.innerHTML = '';
+  ['전체', ...categories].forEach(c => {
     const b = document.createElement('button');
-    b.type = 'button'; b.className = 'chip'; b.textContent = c;
+    b.type='button'; b.className='chip'; b.textContent=c;
     b.setAttribute('aria-pressed', c === filter);
     b.onclick = () => { filter = c; renderFilters(); renderGrid(); };
-    $('#filters').appendChild(b);
+    box.appendChild(b);
   });
 }
 
 /* ── 이미지 선택 + 축소 ─────────── */
 $('#drop').onclick = () => $('#img').click();
-$('#clearImg').onclick = () => resetImage();
+$('#clearImg').onclick = resetImage;
 
 $('#img').onchange = e => {
   const f = e.target.files && e.target.files[0];
   if (!f) return;
-  shrink(f).then(({dataUrl, b64}) => {
-    imageB64 = b64;
-    $('#previewImg').src = dataUrl;
-    $('#preview').style.display = 'block';
-    $('#drop').style.display = 'none';
-  }).catch(() => say('이미지를 읽지 못했습니다. 다른 파일로 시도해 주세요.', 'err'));
+  shrink(f)
+    .then(({dataUrl, b64}) => {
+      imageB64 = b64;
+      $('#previewImg').src = dataUrl;
+      $('#preview').style.display = 'block';
+      $('#drop').style.display = 'none';
+      say('');
+    })
+    .catch(() => say('이미지를 읽지 못했습니다. 다른 파일로 시도해 주세요.', 'err'));
 };
 
 function resetImage(){
@@ -301,6 +303,8 @@ function shrink(file, max = 1400){
 
 /* ── 제출 ───────────────────────── */
 $('#submit').onclick = async () => {
+  if (!configured) return say('먼저 웹 앱 주소를 연결해 주세요.', 'err');
+
   const author = $('#author').value.trim();
   const note   = $('#note').value.trim();
 
@@ -308,14 +312,13 @@ $('#submit').onclick = async () => {
   if (!picked)   return say('카테고리를 골라 주세요.', 'err');
   if (!author)   return say('올린 사람 이름을 넣어 주세요.', 'err');
 
-  $('#submit').disabled = true;
-  $('#submit').textContent = '올리는 중…';
-  say('');
+  const btn = $('#submit');
+  btn.disabled = true; btn.textContent = '올리는 중…'; say('');
 
   try {
     const r = await fetch(API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      method:'POST',
+      headers:{ 'Content-Type':'text/plain;charset=utf-8' },
       body: JSON.stringify({ action:'submit', author, category:picked, note, imageB64, mimeType:'image/jpeg' })
     });
     const d = await r.json();
@@ -329,8 +332,7 @@ $('#submit').onclick = async () => {
   } catch(err){
     say(String(err.message || err), 'err');
   } finally {
-    $('#submit').disabled = false;
-    $('#submit').textContent = '보관함에 올리기';
+    btn.disabled = false; btn.textContent = '보관함에 올리기';
   }
 };
 
@@ -341,12 +343,28 @@ function say(text, kind){
 }
 
 /* ── 목록 ───────────────────────── */
-let items = [];
+function fmtDate(v){
+  if (!v) return '';
+  const s = String(v);
+  const m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (m) return m[1] + '.' + m[2] + '.' + m[3];
+  const d = new Date(s);
+  if (isNaN(d.getTime())) return s.slice(0, 10);
+  const p = n => String(n).padStart(2, '0');
+  return d.getFullYear() + '.' + p(d.getMonth() + 1) + '.' + p(d.getDate());
+}
 
 async function loadList(){
   $('#grid').innerHTML = '';
-  $('#listState').style.display = 'block';
-  $('#listState').innerHTML = '<strong>불러오는 중</strong>잠시만 기다려 주세요';
+  const st = $('#listState');
+  st.style.display = 'block';
+
+  if (!configured){
+    st.innerHTML = '<strong>아직 연결되지 않았습니다</strong>웹 앱 주소를 넣으면 목록이 나옵니다';
+    return;
+  }
+  st.innerHTML = '<strong>불러오는 중</strong>잠시만 기다려 주세요';
+
   try {
     const r = await fetch(API + '?action=list');
     const d = await r.json();
@@ -355,30 +373,31 @@ async function loadList(){
     listLoaded = true;
     renderGrid();
   } catch(e){
-    $('#listState').innerHTML = '<strong>불러오지 못했습니다</strong>새로고침해 주세요';
+    st.innerHTML = '<strong>불러오지 못했습니다</strong>새로고침해 주세요';
   }
 }
 
 function renderGrid(){
   const rows = items.filter(o => filter === '전체' || o.category === filter);
   const grid = $('#grid');
+  const st = $('#listState');
   grid.innerHTML = '';
 
   if (!rows.length){
-    $('#listState').style.display = 'block';
-    $('#listState').innerHTML = items.length
+    st.style.display = 'block';
+    st.innerHTML = items.length
       ? '<strong>이 카테고리는 아직 비어 있습니다</strong>다른 카테고리를 보거나 하나 올려보세요'
       : '<strong>아직 올린 레퍼런스가 없습니다</strong>올리기 탭에서 첫 캡쳐를 넣어보세요';
     return;
   }
-  $('#listState').style.display = 'none';
+  st.style.display = 'none';
 
   rows.forEach(o => {
     const el = document.createElement('article');
     el.className = 'item';
 
     const img = document.createElement('img');
-    img.className = 'thumb'; img.loading = 'lazy';
+    img.className='thumb'; img.loading='lazy';
     img.src = o.imageUrl; img.alt = o.note || '레퍼런스 이미지';
     img.onclick = () => openLb(o.imageUrl);
 
@@ -392,9 +411,9 @@ function renderGrid(){
     const meta = document.createElement('div');
     meta.className = 'meta';
     const cat = document.createElement('span');
-    cat.className = 'cat'; cat.textContent = o.category;
+    cat.className='cat'; cat.textContent = o.category;
     meta.appendChild(cat);
-    meta.appendChild(document.createTextNode(o.date + ' · ' + o.author));
+    meta.appendChild(document.createTextNode(fmtDate(o.date) + ' · ' + o.author));
 
     body.appendChild(note); body.appendChild(meta);
     el.appendChild(img); el.appendChild(body);
